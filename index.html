@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuvora AI - Your Intelligent Digital Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-chat: #090d16;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .btn-primary { background-color: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        main { max-width: 1200px; margin: 0 auto; padding: 6rem 1rem 3rem 1rem; }
+        .hero { text-align: center; padding: 2rem 0; }
+        .hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem auto; }
+        .chat-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin: 0 auto 3rem auto; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .chat-header { padding: 0.75rem 1rem; background: rgba(15, 23, 42, 0.5); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+        .chat-header i { color: var(--primary); font-size: 1.1rem; }
+        .chat-header h3 { font-size: 0.95rem; font-weight: 600; }
+        .chat-messages { height: 320px; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; background-color: var(--bg-chat); }
+        .message { max-width: 85%; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; }
+        .message.ai { background-color: var(--bg-card); color: var(--text-main); align-self: flex-start; border: 1px solid var(--border); }
+        .message.user { background-color: var(--primary); color: white; align-self: flex-end; }
+        .chat-input-area { padding: 0.75rem; background: var(--bg-card); border-top: 1px solid var(--border); display: flex; gap: 0.5rem; }
+        .chat-input-area input { flex: 1; background: var(--bg-chat); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.8rem; color: var(--text-main); font-size: 0.9rem; outline: none; }
+        .chat-input-area button { background-color: var(--primary); color: white; border: none; border-radius: 8px; padding: 0 1rem; font-weight: 600; font-size: 0.9rem; }
+        .features { padding: 2rem 0; }
+        .section-title { text-align: center; font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; }
+        .features-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        .feature-card { background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; }
+        .feature-card i { font-size: 1.5rem; color: var(--primary); margin-bottom: 0.75rem; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+        .feature-card p { color: var(--text-muted); font-size: 0.85rem; }
+        .about-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 3rem; text-align: center; }
+        .about-section h2 { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .about-section p { color: var(--text-muted); font-size: 0.95rem; }
+        footer { text-align: center; padding: 2rem 1rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.85rem; }
+        @media (min-width: 768px) {
+            .features-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-container { padding: 1rem 2rem; }
+            main { padding: 7rem 2rem 4rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo"><i class="fa-solid fa-sparkles"></i> Nuvora <span>AI</span></a>
+            <ul class="nav-links">
+                <li><a href="#chat">Chat</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+            <a href="#chat" class="btn-primary">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Meet Nuvora AI</h1>
+            <p>Your intelligent digital assistant designed to make everyday tasks easier and more productive.</p>
+        </section>
+
+        <section id="chat" class="chat-section">
+            <div class="chat-header">
+                <i class="fa-solid fa-robot"></i>
+                <div>
+                    <h3>Nuvora Assistant</h3>
+                    <span style="font-size: 0.7rem; color: var(--text-muted);">Ready to help</span>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    Hello! I am Nuvora AI. How can I help you today?
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask Nuvora AI anything..." autocomplete="off">
+                <button id="sendBtn">Send</button>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2 class="section-title">What Nuvora AI Can Do</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h3>Brainstorm Ideas</h3>
+                    <p>Generate creative concepts and project outlines instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h3>Content Creation</h3>
+                    <p>Write and improve essays, emails, and code snippets effortlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Learn & Solve</h3>
+                    <p>Break down complex topics and expand your knowledge.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2>About Nuvora AI</h2>
+            <p>Nuvora AI is engineered to streamline your digital lifestyle, serving as your reliable partner for everyday tasks.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nuvora AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function handleSendMessage() {
+            const text = userInput.value.trim();
+            if (text === "") return;
+
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.classList.add('message', 'user');
+            userMsgDiv.textContent = text;
+            chatMessages.appendChild(userMsgDiv);
+
+            userInput.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                const aiMsgDiv = document.createElement('div');
+                aiMsgDiv.classList.add('message', 'ai');
+                aiMsgDiv.textContent = `I received: "${text}". Nuvora AI is running smoothly!`;
+                chatMessages.appendChild(aiMsgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+        }
+
+        sendBtn.addEventListener('click', handleSendMessage);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSendMessage();
+        });
+    </script>
+</body>
+  </html>
+  

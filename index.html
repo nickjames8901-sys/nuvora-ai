@@ -130,37 +130,56 @@
         <p>&copy; 2026 Nuvora AI. All rights reserved.</p>
     </footer>
 
-    <script>
-        const chatMessages = document.getElementById('chatMessages');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
+const chatMessages = document.getElementById('chatMessages');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
 
-        function handleSendMessage() {
-            const text = userInput.value.trim();
-            if (text === "") return;
+const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; 
 
-            const userMsgDiv = document.createElement('div');
-            userMsgDiv.classList.add('message', 'user');
-            userMsgDiv.textContent = text;
-            chatMessages.appendChild(userMsgDiv);
-
-            userInput.value = "";
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            setTimeout(() => {
-                const aiMsgDiv = document.createElement('div');
-                aiMsgDiv.classList.add('message', 'ai');
-                aiMsgDiv.textContent = `I received: "${text}". Nuvora AI is running smoothly!`;
-                chatMessages.appendChild(aiMsgDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 500);
-        }
-
-        sendBtn.addEventListener('click', handleSendMessage);
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') handleSendMessage();
+async function getAIResponse(promptText) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+    
+{.
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: promptText }] }]
+            })
         });
-    </script>
-</body>
-  </html>
-  
+        
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
+    } catch (error) {
+        console.error("API Error:", error);
+        return "Sorry, I encountered an error connecting to my brain!";
+    }
+}
+
+async function handleSendMessage() {
+    const text = userInput.value.trim();
+    if (text === "") return;
+
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.classList.add('message', 'user');
+    userMsgDiv.textContent = text;
+    chatMessages.appendChild(userMsgDiv);
+
+    userInput.value = "";
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    const aiMsgDiv = document.createElement('div');
+    aiMsgDiv.classList.add('message', 'ai');
+    aiMsgDiv.textContent = "Thinking...";
+    chatMessages.appendChild(aiMsgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    const aiResponseText = await getAIResponse(text);
+    aiMsgDiv.textContent = aiResponseText;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+sendBtn.addEventListener('click', handleSendMessage);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSendMessage();
+});

@@ -526,21 +526,16 @@
         /*
          * NUVORA AI
          *
-         * We will connect this to your secure backend
-         * in the next step.
+         * Connected to the secure Vercel backend.
          *
-         * DO NOT put your Gemini API key here.
+         * The Gemini API key is NOT stored here.
          */
 
         async function getAIResponse(promptText) {
 
             try {
 
-                /*
-                 * This will be replaced with your backend URL.
-                 */
-
-                const response = await fetch("YOUR_BACKEND_URL", {
+                const response = await fetch("/api/chat", {
 
                     method: "POST",
 
